@@ -1,8 +1,16 @@
-class Todos {
+import 'package:equatable/equatable.dart';
+import '../../domain/entities/todo_entity.dart';
+
+class Todos extends  TodoEntity with EquatableMixin {
+  @override
   int? id;
+  @override
   DateTime? createTime;
+  @override
   String? title;
+  @override
   String? description;
+  @override
   Completed? completed;
 
   Todos(
@@ -14,21 +22,22 @@ class Todos {
     title = json['title'];
     description = json['description'];
     completed = json['completed'] != null
-        ? new Completed.fromJson(json['completed'])
+        ? Completed.fromJson(json['completed'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['create_time'] = this.createTime;
-    data['title'] = this.title;
-    data['description'] = this.description;
-    if (this.completed != null) {
-      data['completed'] = this.completed!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['create_time'] = createTime;
+    data['title'] = title;
+    data['description'] = description;
+    if (completed != null) {
+      data['completed'] = completed!.toJson();
     }
     return data;
   }
+  
 }
 
 class Completed {
@@ -43,8 +52,8 @@ class Completed {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['type'] = this.type;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['type'] = type;
     data['data'] = this.data;
     return data;
   }

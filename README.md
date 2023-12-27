@@ -1,16 +1,15 @@
-# todotest
+# Simple todo App Written using clean Architecture
 
-A new Flutter project.
+## Description
 
-## Getting Started
+This app is engineered by me and uses some of the best design methods(Industrial standards). With nodejs backend for todo storage, am
+really excited that i built both the front and backend on my own.
 
-This project is a starting point for a Flutter application.
+### Features
 
-A few resources to get you started if this is your first Flutter project:
+- **Clean Architecture init**
+- **Dependency injection init**
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Disclaimer !! Not a cool UI but the logic is stunning...
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Basic structure of clean architecture with the respective layers](./pictures/clean.jpg).

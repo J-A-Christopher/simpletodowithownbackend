@@ -12,7 +12,7 @@ class TodoInitial extends TodoState {}
 class TodoLoading extends TodoState {}
 
 class TodoLoaded extends TodoState {
-  final List<Todos> todoData;
+  final List<TodoEntity> todoData;
   const TodoLoaded({required this.todoData});
    @override
   List<Object> get props => [todoData];

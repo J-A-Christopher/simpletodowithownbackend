@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:injectable/injectable.dart';
 import 'package:todotest/features/get todos/data/models/todo_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:todotest/features/get%20todos/data/exception/exceptions.dart';
@@ -8,6 +9,8 @@ abstract class RemoteTodoDataSource {
   Future<List<Todos>> getTodoData();
 }
 
+
+@Injectable(as: RemoteTodoDataSource )
 class TodoLogic implements RemoteTodoDataSource {
   @override
   Future<List<Todos>> getTodoData() async {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todotest/features/create%20todos/data/model/todoresponse.dart';
+import 'package:todotest/features/create%20todos/presentation/bloc/create_todos_bloc.dart';
 import 'package:todotest/features/get todos/presentation/bloc/todo_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,15 +12,102 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final formKey = GlobalKey<FormState>();
+
+  String? title = '';
+  String? description = '';
+  var isCompleted = '';
+
   @override
   void initState() {
     super.initState();
     context.read<TodoBloc>().add(GetTodos());
   }
 
+  void saveData() {
+    formKey.currentState!.save();
+    Map<String, dynamic> output = {
+      'title': title,
+      'description': description,
+      'isCompleted': isCompleted
+    };
+    print(output);
+    context.read<CreateTodosBloc>().add(CreateTodo(todoData: output));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  content: Form(
+                      key: formKey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Text(
+                            'Add todo..',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          TextFormField(
+                            decoration:
+                                const InputDecoration(hintText: 'Todo Title'),
+                            onSaved: (value) {
+                              title = value;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            decoration: const InputDecoration(
+                                hintText: 'Todo Description'),
+                            onSaved: (value) {
+                              description = value;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            decoration:
+                                const InputDecoration(hintText: 'Is Completed'),
+                            onSaved: (value) {
+                              isCompleted = value!;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                        ],
+                      )),
+                  actions: [
+                    TextButton(
+                        onPressed: saveData, child: const Text('Submit Todo')),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Cancel'))
+                  ],
+                );
+              });
+          // const TodoFormCreation();
+        },
+        shape: const CircleBorder(),
+        backgroundColor: Colors.green,
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.green,
         title: const Text(
